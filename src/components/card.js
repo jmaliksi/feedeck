@@ -50,7 +50,7 @@ class Entry extends React.PureComponent {
       default:
         break;
     }
-    
+
     let seasInt = parseInt(season);
     let seasStr = `s${seasInt + 1}`;
     let dayStr = `d${parseInt(day) + 1}`;
@@ -81,7 +81,7 @@ class Entry extends React.PureComponent {
       default:
         break;
     }
-    
+
     return (
       <div className="entry">
         <div className="entrySeason">
@@ -101,7 +101,7 @@ class Entry extends React.PureComponent {
   }
 };
 
-const EntryCluster = ({ id, feedEntries, season }) => {
+const EntryCluster = ({ feedEntries, season }) => {
   const clustered = feedEntries.reduce((acc, f) => {
     let last = acc.pop();
     if (last.length === 0 || (last[0].season === f.season && last[0].day === f.day && last[0].phase === f.phase)) {
@@ -118,11 +118,11 @@ const EntryCluster = ({ id, feedEntries, season }) => {
     <ul className="feedCluster">
       {clustered.map(c => (c.length > 0 &&
         <li
-            key={id + c[0].season + c[0].day + c[0].phase}
+            key={c[0].season + c[0].day + c[0].phase + c[0].id}
             className={`feedCluster${season !== undefined && c[0].season !== season ? " faded" : ""}`}>
-          <ul className="feedList" key={"ul" + c[0].season + c[0].day + c[0].phase}>
+          <ul className="feedList">
             {c.map(e => (
-              <li key={"e" + e.id} className="feedEntry">
+              <li key={e.id} className="feedEntry">
                 <Entry data={e} />
               </li>
             ))}
@@ -211,7 +211,7 @@ const Entries = (props) => {
   return (
     <>
     {loading && <LoadingClark />}
-    {feedEntries && <EntryCluster id={id} feedEntries={feedEntries} season={season}/>}
+    {feedEntries && <EntryCluster feedEntries={feedEntries} season={season}/>}
     {loadingMore ?
       <LoadingClark /> :
       !loading && (<div className="loadMore">

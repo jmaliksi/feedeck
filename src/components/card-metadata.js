@@ -46,7 +46,7 @@ const TimedModExpiry = ({ metadata }) => {
   }, [metadata.mods]);
 
   return (<ul className="plainlist">
-    {mods.map(m => (<li style={{color: m.textColor}}><Minus/> {m.title}</li>))}
+    {mods.map(m => (<li key={m.id} style={{color: m.textColor}}><Minus/> {m.title}</li>))}
   </ul>);
 };
 

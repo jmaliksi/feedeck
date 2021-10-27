@@ -41,7 +41,7 @@ const neatChangeEvents = [
   /Echoed/
 ];
 
-const BASE_URL = "https://api.sibr.dev/corsmechanics/www.blaseball.com/"
+const BASE_URL = "https://api.sibr.dev/corsmechanics/blaseball/"
 
 function isPitching(update) {
   for (const pattern of neatPitchEvents) {

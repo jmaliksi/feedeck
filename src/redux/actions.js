@@ -1,12 +1,13 @@
 import store from "./store";
 import { v4 as uuidv4 } from "uuid";
 
-export const addColumn = function({key, title, playerIds, teamIds, eventTypes, beings, categories, unredacted}) {
+export const addColumn = function({key, title, search, playerIds, teamIds, eventTypes, beings, categories, unredacted}) {
   return store.dispatch({
     type: "columnDefs/add",
     payload: {
       key: key || uuidv4(),
       title: title,
+      search: search || [],
       playerIds: playerIds || [],
       teamIds: teamIds || [],
       eventTypes: eventTypes || [],
@@ -37,6 +38,7 @@ export const updateColumn = function(key, payload) {
     payload: {
       key: key,
       title: payload.title,
+      search: payload.search,
       playerIds: payload.playerIds,
       teamIds: payload.teamIds,
       eventTypes: payload.eventTypes,

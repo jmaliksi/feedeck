@@ -168,6 +168,7 @@ const Entries = (props) => {
     let cancelled = false;
     setLoading(true);
     fetchFeed({
+      search: filters.search,
       unredacted: filters.unredacted,
       playerIds: filters.playerIds,
       teamIds: filters.teamIds,
@@ -194,6 +195,7 @@ const Entries = (props) => {
       before = Date.parse(last.created);
     }
     fetchFeed({
+      search: filters.search,
       unredacted: filters.unredacted,
       playerIds: filters.playerIds,
       teamIds: filters.teamIds,

@@ -306,7 +306,7 @@ export const listenFeed = function(cb) {
   });
 };
 
-export const fetchFeed = ({playerIds, teamIds, eventTypes, beings, categories, after, limit, before, unredacted}) => {
+export const fetchFeed = ({playerIds, search, teamIds, eventTypes, beings, categories, after, limit, before, unredacted}) => {
   if (unredacted) {
     return fetch(`https://api.sibr.dev/upnuts/upstream`)
       .then(res => res.json())
@@ -315,6 +315,10 @@ export const fetchFeed = ({playerIds, teamIds, eventTypes, beings, categories, a
   }
 
   let params = new URLSearchParams();
+
+  if (search) {
+    params.append("description~",search);
+  }
   if (playerIds && playerIds.length > 0) {
     params.append("playerTags", playerIds.join("_or_"));
   }

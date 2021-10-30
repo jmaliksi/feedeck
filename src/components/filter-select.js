@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from 'react-redux';
 import { knownTypes } from "../api/eventuallie";
 import ReactModal from 'react-modal';
+import { DebounceInput } from "react-debounce-input";
 
 const AdvancedTypeModal = (props) => {
   const { defs, close } = props;
@@ -231,6 +232,18 @@ const FilterSelect = (props) => {
             });
           }}
         />
+        
+        <label>Search</label>
+        <DebounceInput
+          minLength={3}
+          debounceTimeout={300}
+          type="text"
+          placeholder={"search string..."}
+          value={defs?.search}
+          onChange={(e) => e.target.value !== defs?.search && updateColumn(props.id, {search: e.target.value})}
+          className="searchEdit"
+        />
+
         <button onClick={() => moveColumn(props.id, -1)}>Move Left</button>
         <button onClick={() => moveColumn(props.id, 1)}>Move Right</button>
         {removeConfirm ? (

@@ -217,6 +217,10 @@ input[type=checkbox] {
   font-size: x-large;
 }
 
+.searchEdit {
+  font-size: x-large;
+}
+
 input {
   background-color: var(--bg-color);
   border: 1px solid var(--font-color);

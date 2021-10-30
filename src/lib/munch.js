@@ -15,7 +15,8 @@ export const refreshFeeds = (updateFrom, columns, limit, season) => {
     setLastUpdate();
     updates.reverse().map(f => {
       return columns.map(c => {
-        if (include(c.playerIds, f.playerTags) &&
+        if (include(c.search, f.search) &&
+            include(c.playerIds, f.playerTags) &&
             include(c.teamIds, f.teamTags) &&
             include(c.beings, f.metadata ? [f.metadata.being] : []) &&
             include(c.categories, [f.category]) &&
@@ -37,6 +38,7 @@ export const refreshFeeds2 = (columns, feeds, limit, updateFrom) => {
     const last = feed[0]?.created;
     const from = last ? Date.parse(last) : updateFrom;
     return fetchFeed({
+        search: c.search,
         unredacted: c.unredacted,
         playerIds: c.playerIds,
         teamIds: c.teamIds,

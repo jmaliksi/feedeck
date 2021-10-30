@@ -10,6 +10,9 @@ const toTinyColumn = (column) => {
   if (column.title) {
     tiny.n = column.title;
   }
+  if (column.search) {
+    tiny.s = column.search;
+  }
   if (column.playerIds) {
     tiny.p = column.playerIds;
   }
@@ -32,6 +35,7 @@ const fromTinyColumn = (tiny) => {
   return {
     title: tiny.n || undefined,
     key: uuidv4(),
+    search: tiny.s || "",
     playerIds: tiny.p || [],
     teamIds: tiny.t || [],
     eventTypes: tiny.e || [],

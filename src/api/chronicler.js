@@ -49,11 +49,11 @@ export const initChron = () => {
         { label: "ILB", options: data.filter((d) => ilbTeamIds.indexOf(d.value) !== -1) },
         { label: "Library", options: data.filter((d) => libraryTeamIds.indexOf(d.value) !== -1) },
         { label: "Gamma8 (Short Circuit)", options: data.filter((d) => gamma8TeamIds.indexOf(d.value) !== -1) },
-        { label: "Coffee Cup", options: data.filter((d) => coffeeTeamIds.indexOf(d.value) !== -1) },
-        { label: "Special", options: data.filter((d) => specialTeamIds.indexOf(d.value) !== -1) },
-        { label: "Gamma7", options: data.filter((d) => gamma7TeamIds.indexOf(d.value) !== -1) },
-        { label: "Gamma5", options: data.filter((d) => gamma5TeamIds.indexOf(d.value) !== -1) },
-        { label: "Gamma4", options: data.filter((d) => gamma4TeamIds.indexOf(d.value) !== -1) },
+        //{ label: "Coffee Cup", options: data.filter((d) => coffeeTeamIds.indexOf(d.value) !== -1) },
+        //{ label: "Special", options: data.filter((d) => specialTeamIds.indexOf(d.value) !== -1) },
+        //{ label: "Gamma7", options: data.filter((d) => gamma7TeamIds.indexOf(d.value) !== -1) },
+        //{ label: "Gamma5", options: data.filter((d) => gamma5TeamIds.indexOf(d.value) !== -1) },
+        //{ label: "Gamma4", options: data.filter((d) => gamma4TeamIds.indexOf(d.value) !== -1) },
       ];
 
       setTeamOptions(options);

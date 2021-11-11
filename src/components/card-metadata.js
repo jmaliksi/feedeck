@@ -159,12 +159,16 @@ const SendPlayer = ({metadata}) => {
 };
 
 const IncineratePlayer = ({metadata}) => {
+  const { teamId, teamName, outPlayerName, inPlayerName } = metadata
+  if (!teamId || !teamName || !outPlayerName || !inPlayerName) {
+    return <></>;
+  }
   return (
     <div className="grid-2">
-      <div><TeamEmoji teamId={metadata.teamId}/>{metadata.teamName}</div>
-      <div><Minus/> {metadata.outPlayerName}</div>
-      <div><TeamEmoji teamId={metadata.teamId}/>{metadata.teamName}</div>
-      <div><Plus/> {metadata.inPlayerName}</div>
+      <div><TeamEmoji teamId={teamId}/>{teamName}</div>
+      <div><Minus/> {outPlayerName}</div>
+      <div><TeamEmoji teamId={teamId}/>{teamName}</div>
+      <div><Plus/> {inPlayerName}</div>
     </div>
   );
 };

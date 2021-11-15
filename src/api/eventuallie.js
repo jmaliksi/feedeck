@@ -306,7 +306,7 @@ export const listenFeed = function(cb) {
   });
 };
 
-export const fetchFeed = ({playerIds, teamIds, eventTypes, beings, categories, after, limit, before, unredacted}) => {
+export const fetchFeed = ({playerIds, teamIds, eventTypes, beings, categories, after, limit, before, unredacted, ids}) => {
   if (unredacted) {
     return fetch(`https://api.sibr.dev/upnuts/upstream`)
       .then(res => res.json())
@@ -335,6 +335,9 @@ export const fetchFeed = ({playerIds, teamIds, eventTypes, beings, categories, a
   }
   if (before) {
     params.append("before", (before / 1000) | 0);
+  }
+  if (ids && ids.length > 0) {
+    params.append("id", ids.join("_or_"));
   }
   params.append("limit", limit || 100);
   return fetch(`https://api.sibr.dev/eventually/v2/events?${params.toString()}`)

@@ -422,3 +422,33 @@ hr {
   font-size: x-small;
   margin-right: 1em;
 }
+
+.metadataChild {
+  padding-top: .2em;
+  padding-bottom: .2em;
+  padding-left: 1em;
+  font-size: small;
+}
+
+.metadataVotes {
+  padding-top: .5em;
+}
+
+.feedMetadata {
+  font-size: small;
+  font-family: monospace, monospace;
+}
+
+.feedMetadataButton {
+  font-size: x-small;
+  cursor: pointer;
+  float: right;
+}
+
+.feedMetadataList {
+  padding-left: 2em;
+}
+
+.feedMetadataList > li {
+  list-style-type: none;
+}

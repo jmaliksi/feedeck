@@ -116,3 +116,7 @@ export const toggleExpandMetadata = () => {
     type: 'metadata/toggle'
   });
 };
+
+export const toggleShowApple = () => {
+  return store.dispatch({type: 'apple/toggle'});
+};

@@ -1,7 +1,9 @@
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { getMod, getTeam } from "../api/blaseball";
+import { fetchFeed } from "../api/eventuallie";
 import emoji from "../lib/emoji";
+import LoadingClark from "./loading-clark";
 
 const Minus = () => <span style={{color: "#F00"}}>-</span>;
 const Plus = () => <span style={{color: "#0C0"}}>+</span>;
@@ -225,6 +227,104 @@ const Score = ({metadata}) => {
     </div>);
 };
 
+const WillResult = ({metadata, teamTags}) => {
+  const { totalVotes, dataVotes, willVotes, children } = metadata;
+
+  const [ kids, setKids ] = useState(<LoadingClark />);
+  useEffect(() => {
+    if (!children || children.length === 0) {
+      setKids(<></>);
+      return;
+    }
+    fetchFeed({ids: children}).then((childs) => {
+      setKids(
+        childs.map((child) => (
+          <div className="metadataChild" key={child.id}>
+            <div>{child.description}</div>
+            <EntryMetadata data={child} />
+          </div>
+        ))
+      );
+    });
+  }, [children]);
+
+  return (<div>
+    <div>{kids}</div>
+    <div className="grid-3 metadataVotes">
+      <div>Total Votes</div>
+      <div>{totalVotes.toLocaleString()}</div>
+      <div>&nbsp;</div>
+
+      <div>This Will</div>
+      <div>{willVotes.toLocaleString()}</div>
+      <div>{(willVotes / totalVotes * 100).toFixed(1)}%</div>
+
+      <div>This Filing</div>
+      <div>{dataVotes.toLocaleString()}</div>
+      <div>{((dataVotes / willVotes) * (willVotes / totalVotes) * 100).toFixed(1)}%</div>
+    </div>
+  </div>);
+};
+
+const BlessingResult = ({metadata}) => {
+  const { votes, totalVotes, highestVotes, teamName, highestTeam, children } = metadata;
+  const [ highestBidder, setHighestBidder ] = useState(<LoadingClark/>);
+  useEffect(() => getTeam(highestTeam).then(t => setHighestBidder(t.nickname)), [highestTeam]);
+
+  const [ kids, setKids ] = useState(<LoadingClark />);
+  useEffect(() => {
+    if (!children || children.length === 0) {
+      setKids(<></>);
+      return;
+    }
+    fetchFeed({ids: children}).then((childs) => {
+      setKids(
+        childs.map((child) => (
+          <div className="metadataChild" key={child.id}>
+            <div>{child.description}</div>
+            <EntryMetadata data={child} />
+          </div>
+        ))
+      );
+    });
+  }, [children]);
+
+  return (<div>
+    <div>{kids}</div>
+    {votes && totalVotes && highestVotes && (
+      <div className="grid-3 metadataVotes">
+        <div>Total Votes</div>
+        <div>{totalVotes.toLocaleString()}</div>
+        <div>&nbsp;</div>
+
+        <div>{teamName}</div>
+        <div>{votes.toLocaleString()}</div>
+        <div>{(votes / totalVotes * 100).toFixed(1)}%</div>
+
+        <div>{highestBidder}</div>
+        <div>{highestVotes.toLocaleString()}</div>
+        <div>{((highestVotes / totalVotes) * 100).toFixed(1)}%</div>
+      </div>
+    )}
+  </div>);
+};
+
+const DecreeResult = ({metadata}) => {
+  const { totalVotes, votes } = metadata;
+  return (<div>
+    <div className="grid-3">
+      <div>Total Votes</div>
+      <div>{totalVotes.toLocaleString()}</div>
+      <div>&nbsp;</div>
+
+      <div>This Decree</div>
+      <div>{votes.toLocaleString()}</div>
+      <div>{(votes / totalVotes * 100).toFixed(1)}%</div>
+
+    </div>
+  </div>);
+};
+
 const EntryMetadata = (props) => {
   const { type, metadata } = props.data;
 
@@ -233,6 +333,12 @@ const EntryMetadata = (props) => {
   }
 
   switch (type) {
+    case 59:
+      return <DecreeResult metadata={metadata}/>
+    case 60:
+      return <BlessingResult metadata={metadata} />
+    case 61:
+      return <WillResult metadata={metadata} teamTags={props.data.teamTags} />
     case 106:
     case 146:
     case 203:

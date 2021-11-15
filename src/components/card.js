@@ -3,20 +3,11 @@ import { useSelector } from "react-redux";
 import { fetchFeed } from "../api/eventuallie";
 import { feedsMe } from "../redux/actions";
 import FilterSelect from "./filter-select";
-import ballclark from "../ballclark.png";
 import ReactTooltip from "react-tooltip";
 import { getSimulationData } from "../api/blaseball";
 import EntryMetadata from "./card-metadata";
-
-const LoadingClark = () => (
-  <div>
-    <center>
-      <div className="spinClark">
-        <img alt="loading" src={ballclark} />
-      </div>
-    </center>
-  </div>
-);
+import FeedMetadata from "./feed-metadata";
+import LoadingClark from "./loading-clark";
 
 class Entry extends React.PureComponent {
   render() {
@@ -95,6 +86,7 @@ class Entry extends React.PureComponent {
             {description.split("\n").map((line) => (<li key={line}>{line}</li>))}
           </ul>
           <EntryMetadata data={this.props.data} />
+          <FeedMetadata data={this.props.data} />
         </div>
       </div>
     );

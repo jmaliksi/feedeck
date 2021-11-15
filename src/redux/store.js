@@ -9,7 +9,8 @@ const initialState = {
   teamOptions: [],
   playerOptions: [],
   showCurrentSeason: false,
-  showMetadata: true
+  showMetadata: true,
+  showApple: false
 };
 
 function mainReducer(state = initialState, action) {
@@ -127,6 +128,11 @@ function mainReducer(state = initialState, action) {
       return {
         ...state,
         showMetadata: !state.showMetadata
+      };
+    case 'apple/toggle':
+      return {
+        ...state,
+        showApple: !state.showApple
       };
     default:
       return state;

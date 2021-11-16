@@ -227,9 +227,7 @@ const Score = ({metadata}) => {
     </div>);
 };
 
-const WillResult = ({metadata, teamTags}) => {
-  const { totalVotes, dataVotes, willVotes, children } = metadata;
-
+const MetadataChildren = ({ children }) => {
   const [ kids, setKids ] = useState(<LoadingClark />);
   useEffect(() => {
     if (!children || children.length === 0) {
@@ -244,12 +242,17 @@ const WillResult = ({metadata, teamTags}) => {
             <EntryMetadata data={child} />
           </div>
         ))
-      );
+      )
     });
   }, [children]);
+  return <div>{kids}</div>;
+};
+
+const WillResult = ({metadata, teamTags}) => {
+  const { totalVotes, dataVotes, willVotes, children } = metadata;
 
   return (<div>
-    <div>{kids}</div>
+    <MetadataChildren children={children} />
     <div className="grid-3 metadataVotes">
       <div>Total Votes</div>
       <div>{totalVotes.toLocaleString()}</div>
@@ -271,26 +274,8 @@ const BlessingResult = ({metadata}) => {
   const [ highestBidder, setHighestBidder ] = useState(<LoadingClark/>);
   useEffect(() => getTeam(highestTeam).then(t => setHighestBidder(t.nickname)), [highestTeam]);
 
-  const [ kids, setKids ] = useState(<LoadingClark />);
-  useEffect(() => {
-    if (!children || children.length === 0) {
-      setKids(<></>);
-      return;
-    }
-    fetchFeed({ids: children}).then((childs) => {
-      setKids(
-        childs.map((child) => (
-          <div className="metadataChild" key={child.id}>
-            <div>{child.description}</div>
-            <EntryMetadata data={child} />
-          </div>
-        ))
-      );
-    });
-  }, [children]);
-
   return (<div>
-    <div>{kids}</div>
+    <MetadataChildren children={children} />
     {votes && totalVotes && highestVotes && (
       <div className="grid-3 metadataVotes">
         <div>Total Votes</div>

@@ -445,8 +445,29 @@ hr {
   float: right;
 }
 
+@keyframes feedMetadataIn {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-10%);
+  }
+
+  50% {
+    -webkit-transform: translateY(2%);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0%);
+  }
+}
+
 .feedMetadataList {
   padding-left: 2em;
+  animation: feedMetadataIn .5s;
+  -webkit-animation: feedMetadataIn .5s;
+  -moz-animation: feedMetadataIn .5s;
+  -o-animation: feedMetadataIn .5s;
+  -ms-animation: feedMetadataIn .5s;
 }
 
 .feedMetadataList > li {

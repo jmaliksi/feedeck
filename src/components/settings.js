@@ -166,6 +166,33 @@ export const ShowCurrentSeason = () => {
   </div>);
 };
 
+export const JumpTime = () => {
+  const [ jumpSeason, setJumpSeason ] = useState(undefined);
+  const [ jumpDay, setJumpDay ] = useState(undefined);
+  const autoRefresh = useSelector((state) => state.autoRefresh);
+  const lastUpdate = useSelector((state) => state.lastUpdate);
+  const columns = useSelector((state) => state.columnDefs);
+  const feeds = useSelector((state) => state.feeds);
+
+  const jump = (e) => {
+    refreshFeeds2(columns, feeds, 100, undefined, true, jumpSeason, jumpDay);
+  };
+
+  return (<div className="jumpSetting">
+    <button onClick={jump}>Jump <small>(beta)</small></button>
+    <input
+      type="number"
+      placeholder="Season"
+      onBlur={(e) => setJumpSeason(e.target.value || undefined)}
+    />
+    <input
+      type="number"
+      placeholder="Day"
+      onBlur={(e) => setJumpDay(e.target.value || undefined)}
+    />
+  </div>); 
+};
+
 export const ToggleMetadata = () => {
   const showMetadata = useSelector((state) => state.showMetadata);
   return (<div>
@@ -188,6 +215,7 @@ export const SettingsColumn = ({ hash }) => {
       <AddColumn />
       <RefreshFeed />
       <ShowCurrentSeason />
+      <JumpTime />
       <ToggleMetadata />
       <ToggleApple />
       <DarkToggle />

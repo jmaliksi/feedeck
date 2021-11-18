@@ -28,14 +28,14 @@ export const refreshFeeds = (updateFrom, columns, limit, season) => {
   });
 };
 
-export const refreshFeeds2 = (columns, feeds, limit, updateFrom) => {
+export const refreshFeeds2 = (columns, feeds, limit, updateFrom, resetFeeds, season, day) => {
   return Promise.all(columns.map(c => {
     const feed = feeds[c.key];
     if (!feed) {
       return Promise.resolve(undefined);
     }
     const last = feed[0]?.created;
-    const from = last ? Date.parse(last) : updateFrom;
+    const from = updateFrom === undefined ? undefined : last ? Date.parse(last) : updateFrom;
     return fetchFeed({
         unredacted: c.unredacted,
         playerIds: c.playerIds,
@@ -44,10 +44,12 @@ export const refreshFeeds2 = (columns, feeds, limit, updateFrom) => {
         beings: c.beings,
         categories: c.categories,
         after: from,
-        limit: limit || 100
+        limit: limit || 100,
+        season: season,
+        day: day,
       })
       .then(r => {
-        const reset = c.unredacted ? true : false;
+        const reset = resetFeeds || c.unredacted ? true : false;
         feedsMe(c.key, r, reset, false, limit)
         setLastUpdate();
       });

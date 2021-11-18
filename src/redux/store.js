@@ -10,7 +10,7 @@ const initialState = {
   playerOptions: [],
   showCurrentSeason: false,
   showMetadata: true,
-  showApple: false
+  showApple: false,
 };
 
 function mainReducer(state = initialState, action) {

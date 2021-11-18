@@ -473,3 +473,10 @@ hr {
 .feedMetadataList > li {
   list-style-type: none;
 }
+
+.jumpSetting > input {
+  border-radius: 25px;
+  max-width: 5em;
+  margin-left: 1px;
+  margin-right: 1px;
+}

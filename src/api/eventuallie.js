@@ -306,13 +306,16 @@ export const listenFeed = function(cb) {
   });
 };
 
-export const fetchFeed = ({playerIds, teamIds, eventTypes, beings, categories, after, limit, before, unredacted, ids}) => {
+export const fetchFeed = ({playerIds, teamIds, eventTypes, beings, categories, after, limit, before, unredacted, ids, season, day}) => {
   if (unredacted) {
     return fetch(`https://api.sibr.dev/upnuts/upstream`)
       .then(res => res.json())
       .then(events => events.filter((e) => e.type === 'THRESHOLD_PASSED_SCALES'))
       .then(events => events.map((e) => e.event))
   }
+
+  const events = eventTypes?.filter((t) => t >= 0);
+  const phases = eventTypes?.filter((t) => t <0).map((t) => -t);
 
   let params = new URLSearchParams();
   if (playerIds && playerIds.length > 0) {
@@ -321,8 +324,11 @@ export const fetchFeed = ({playerIds, teamIds, eventTypes, beings, categories, a
   if (teamIds && teamIds.length > 0) {
     params.append("teamTags", teamIds.join("_or_"));
   }
-  if (eventTypes && eventTypes.length > 0) {
-    params.append("type", eventTypes.join("_or_"));
+  if (events && events.length > 0) {
+    params.append("type", events.join("_or_"));
+  }
+  if (phases && phases.length > 0) {
+    params.append("phase", phases.join("_or_"));
   }
   if (beings && beings.length > 0) {
     params.append("metadata.being", beings.join("_or_"));
@@ -338,6 +344,12 @@ export const fetchFeed = ({playerIds, teamIds, eventTypes, beings, categories, a
   }
   if (ids && ids.length > 0) {
     params.append("id", ids.join("_or_"));
+  }
+  if (season) {
+    params.append("season", season - 1);
+  }
+  if (day) {
+    params.append("day", day - 1);
   }
   params.append("limit", limit || 100);
   return fetch(`https://api.sibr.dev/eventually/v2/events?${params.toString()}`)

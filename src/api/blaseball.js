@@ -41,6 +41,22 @@ const neatChangeEvents = [
   /Echoed/
 ];
 
+export const blaseballPhases = [
+  {value: -1, desc: "Pre-season"},
+  {value: -2, desc: "EarlSeason"},
+  {value: -3, desc: "EarlSiesta"},
+  {value: -4, desc: "MidSeason"},
+  {value: -5, desc: "LateSiesta"},
+  {value: -6, desc: "LateSeason"},
+  {value: -7, desc: "Season End"},
+  {value: -8, desc: "Pre-Postseason"},
+  {value: -9, desc: "Early Postseason"},
+  {value: -10, desc: "Early Postseason End"},
+  {value: -11, desc: "Postseason"},
+  {value: -12, desc: "Postseason End"},
+  {value: -13, desc: "Election"},
+];
+
 const BASE_URL = "https://api.sibr.dev/corsmechanics/blaseball/"
 
 function isPitching(update) {

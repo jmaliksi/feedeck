@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from 'react-redux';
 import { knownTypes } from "../api/eventuallie";
 import ReactModal from 'react-modal';
+import { blaseballPhases } from "../api/blaseball";
 
 const AdvancedTypeModal = (props) => {
   const { defs, close } = props;
@@ -12,6 +13,32 @@ const AdvancedTypeModal = (props) => {
 
   return (
     <>
+    <h2 style={{margin: 0}}>Blaseball Phases</h2>
+    <div className="typeModalColumns">
+      {
+        blaseballPhases.map((p) => {
+          return (
+            <div key={p.value} className="typeCheckbox">
+              <input
+                id={`phase${p.value}`}
+                type="checkbox"
+                checked={types.has(p.value)}
+                onChange={() => {
+                  if (types.has(p.value)) {
+                    types.delete(p.value);
+                  } else {
+                    types.add(p.value);
+                  }
+                  setTypes(new Set(types));
+                }}
+              />
+              <label htmlFor={`phase${p.value}`}>{`${-p.value}: ${p.desc}`}</label>
+            </div>
+          );
+        })
+      }
+    </div>
+    <div>&nbsp;</div>
     <h2 style={{margin: 0}}>Blaseball Events</h2>
     <input
       type="text"
@@ -121,6 +148,9 @@ const TypeSelect = (props) => {
         <AdvancedTypeModal defs={defs} close={closeAdvanced} />
       </ReactModal>
       {defs?.eventTypes && <div className="selectedTypes">
+        {blaseballPhases.filter((t) => defs.eventTypes.includes(t.value)).map((p) => {
+          return (<div key={p.value} className="selectedTypeCrumb">{p.desc}</div>);
+        })}
         {knownTypes.filter((t) => defs.eventTypes.includes(t.value)).map((t) => {
           return (<div key={t.value} className="selectedTypeCrumb">{t.value}: {t.desc}</div>);
         })}

@@ -331,10 +331,10 @@ export const fetchFeed = ({playerIds, teamIds, eventTypes, beings, categories, a
     params.append("category", categories.join("_or_"));
   }
   if (after) {
-    params.append("after", (after / 1000) | 0);
+    params.append("after", after);
   }
   if (before) {
-    params.append("before", (before / 1000) | 0);
+    params.append("before", before);
   }
   if (ids && ids.length > 0) {
     params.append("id", ids.join("_or_"));

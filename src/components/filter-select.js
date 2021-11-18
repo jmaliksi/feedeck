@@ -167,6 +167,17 @@ const FilterSelect = (props) => {
     }),
   };
 
+  let selectedTeams = [];
+  if (defs && defs.teamIds) {
+    teamOptions.forEach((option) => {
+      option.options.forEach((t) => {
+        if (defs.teamIds.includes(t.value)) {
+          selectedTeams.push(t);
+        }
+      });
+    });
+  }
+
   return (
     <div>
     {!expand ? (
@@ -192,7 +203,7 @@ const FilterSelect = (props) => {
           classNamePrefix="editDropdown"
           styles={selectStyle}
           options={teamOptions}
-          defaultValue={defs && teamOptions.filter((t) => defs.teamIds?.includes(t.value))}
+          defaultValue={selectedTeams}
           isMulti
           onChange={(opt) => {
             updateColumn(props.id, {

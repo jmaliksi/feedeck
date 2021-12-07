@@ -287,6 +287,12 @@ export const knownTypes = [
   {value: 249, desc: "Black Hole (Black Hole)"},
   {value: 251, desc: "Jazz"},
   {value: 256, desc: "From diagonal, glood"},
+  {value: 257, desc: "THE VAULT/THE HORIZON/THE HALL/THE DESERT"},
+  {value: 259, desc: "The Coin Scattered/Incinerated"},
+  {value: 261, desc: "Double Strike"},
+  {value: 262, desc: "Electricity zaps a ball away"},
+  {value: 263, desc: "Snow: Winter snow warning"},
+  {value: 264, desc: "Snow: Snowflakes modified the field"},
 ];
 
 export const listenFeed = function(cb) {
